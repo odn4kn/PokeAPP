@@ -1,23 +1,3 @@
-class Pokemon {
-  final int id;
-  final String name;
-  final String imageUrl;
-
-  Pokemon({
-    required this.id,
-    required this.name,
-    required this.imageUrl,
-  });
-
-  factory Pokemon.fromJson(Map<String, dynamic> json) {
-    return Pokemon(
-      id: json['id'],
-      name: json['name'],
-      imageUrl: json['sprites']['front_default'],
-    );
-  }
-}
-
 class PokemonStat {
   final List<Nature> decreaseNatures;
   final List<Nature> increaseNatures;
@@ -60,12 +40,4 @@ class Nature {
       name: json['nature']['name'] ?? '',
     );
   }
-}
-
-class PokemonDetailsArguments {
-  final String pokemonName;
-  final PokemonStat pokemonStat;
-
-  PokemonDetailsArguments(
-      {required this.pokemonName, required this.pokemonStat});
 }

@@ -1,7 +1,7 @@
-import 'package:app/pokemon.dart';
+import 'package:app/models/pokemon_stat.dart';
 import 'package:flutter/material.dart';
-import 'pokemon_list_page.dart';
-import 'pokemon_details_screen.dart';
+import 'screens/pokemon_details_screen.dart';
+import 'screens/pokemon_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,13 +22,13 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const PokemonListPage(),
         '/details': (context) => PokemonDetailsScreen(
-              pokemonName: 'Speed',
-              pokemonStat: PokemonStat(
-                decreaseNatures: [],
-                increaseNatures: [],
-              ),
-              pokemonImageUrl: '',
-            ),
+          pokemonName: 'Speed',
+          pokemonImageUrl: '',
+          pokemonStat: PokemonStat(
+            decreaseNatures: [],
+            increaseNatures: [],
+          ),
+        ),
       },
     );
   }
