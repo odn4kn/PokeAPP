@@ -1,4 +1,3 @@
-import 'package:app/models/pokemon_stat.dart';
 import 'package:flutter/material.dart';
 import 'screens/pokemon_details_screen.dart';
 import 'screens/pokemon_list_page.dart';
@@ -17,18 +16,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Poppins',
       ),
       initialRoute: '/',
       routes: {
         '/': (context) => const PokemonListPage(),
-        '/details': (context) => PokemonDetailsScreen(
-          pokemonName: 'Speed',
-          pokemonImageUrl: '',
-          pokemonStat: PokemonStat(
-            decreaseNatures: [],
-            increaseNatures: [],
-          ),
-        ),
+        '/details': (context) => const PokemonDetailScreen(),
       },
     );
   }
