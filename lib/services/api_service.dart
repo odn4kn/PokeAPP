@@ -1,4 +1,5 @@
 import 'package:app/models/pokemon_details.dart';
+import 'package:app/utils/get_id_from_url.dart';
 import 'package:dio/dio.dart';
 import 'package:app/models/pokemon.dart';
 import 'package:flutter/foundation.dart';
@@ -29,12 +30,6 @@ class ApiService {
     }
   }
 
-  static int getIdFromUrl(String url) {
-    final uri = Uri.parse(url);
-    return int.parse(uri.pathSegments[uri.pathSegments.length - 2]);
-  }
-
-  // Метод для получения подробной информации о покемоне по его идентификатору
   static Future<PokemonDetail> fetchPokemonDetails(int pokemonId) async {
     try {
       final response = await _dio.get('pokemon/$pokemonId');
