@@ -1,11 +1,12 @@
-import 'package:app/models/pokemon_stat.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:app/models/pokemon.dart';
+import 'package:app/models/pokemon_details.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart'; // Импортируйте модели, если необходимо
 
 class ApiService {
   static final Dio _dio = Dio();
 
+  // Метод для получения списка покемонов
   static Future<List<Pokemon>> fetchPokemonList() async {
     try {
       final response = await _dio.get('https://pokeapi.co/api/v2/pokemon');
@@ -26,21 +27,23 @@ class ApiService {
     }
   }
 
+  // Метод для получения подробной информации о покемоне по его идентификатору
+  static Future<PokemonDetail> fetchPokemonDetails(int pokemonId) async {
+    try {
+      final response = await _dio.get('https://pokeapi.co/api/v2/pokemon/$pokemonId');
+      final pokemonDetailData = response.data;
+      return PokemonDetail.fromJson(pokemonDetailData);
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error fetching pokemon details: $error');
+      }
+      throw 'Error fetching pokemon details: $error';
+    }
+  }
+
+  // Вспомогательный метод для извлечения ID из URL
   static int getIdFromUrl(String url) {
     final uri = Uri.parse(url);
     return int.parse(uri.pathSegments[uri.pathSegments.length - 2]);
-  }
-
-  static Future<PokemonStat> fetchPokemonStat(int pokemonId) async {
-    try {
-      final response = await _dio.get('https://pokeapi.co/api/v2/pokemon/$pokemonId');
-      final pokemonStatData = response.data;
-      return PokemonStat.fromJson(pokemonStatData);
-    } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching pokemon stat: $error');
-      }
-      throw 'Error fetching pokemon stat: $error';
-    }
   }
 }
