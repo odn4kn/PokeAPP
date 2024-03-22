@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const PokemonListScreen(),
         '/details': (context) => const PokemonDetailScreen(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }
