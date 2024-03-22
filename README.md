@@ -4,7 +4,7 @@
 
 ### This is a university project
 
-### API - [Pokemon API](https://pokeapi.co/)
+## API - [Pokemon API](https://pokeapi.co/)
 
 ## Preview
 
