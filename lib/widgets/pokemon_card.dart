@@ -1,4 +1,5 @@
-import 'package:app/models/pokemon_stat.dart';
+import 'package:app/models/pokemon_details.dart';
+import 'package:app/utils/capitalize_first_letter.dart';
 import 'package:flutter/material.dart';
 import 'package:app/screens/pokemon_details_screen.dart';
 import 'package:app/services/api_service.dart';
@@ -25,13 +26,13 @@ class PokemonCard extends StatelessWidget {
           children: [
             Image.network(
               pokemon.imageUrl,
-              width: 100,
-              height: 100,
-              fit: BoxFit.contain,
+              width: 120,
+              height: 120,
+              fit: BoxFit.fill,
             ),
             const SizedBox(height: 8.0),
             Text(
-              pokemon.name,
+              capitalizeFirstLetter(pokemon.name),
               style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
           ],
@@ -42,8 +43,8 @@ class PokemonCard extends StatelessWidget {
 
   void _fetchAndNavigate(BuildContext context) async {
     try {
-      final pokemonStat = await ApiService.fetchPokemonStat(pokemon.id);
-      _navigateToPokemonDetails(context, pokemonStat);
+      final pokemonDetails = await ApiService.fetchPokemonDetails(pokemon.id);
+      _navigateToPokemonDetails(context, pokemonDetails);
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -53,14 +54,12 @@ class PokemonCard extends StatelessWidget {
     }
   }
 
-  void _navigateToPokemonDetails(BuildContext context, PokemonStat pokemonStat) {
+  void _navigateToPokemonDetails(BuildContext context, PokemonDetail pokemonDetails) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PokemonDetailsScreen(
-          pokemonName: pokemon.name,
-          pokemonImageUrl: pokemon.imageUrl,
-          pokemonStat: pokemonStat,
+        builder: (context) => PokemonDetailScreen(
+          pokemonDetail: pokemonDetails,
         ),
       ),
     );
