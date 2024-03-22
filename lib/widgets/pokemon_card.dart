@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:app/screens/pokemon_details_screen.dart';
 import 'package:app/services/api_service.dart';
 import 'package:app/models/pokemon.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
@@ -21,19 +22,39 @@ class PokemonCard extends StatelessWidget {
         onTap: () {
           _fetchAndNavigate(context);
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
+          alignment: Alignment.center,
           children: [
-            Image.network(
-              pokemon.imageUrl,
-              width: 120,
-              height: 120,
-              fit: BoxFit.fill,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.network(
+                  pokemon.imageUrl,
+                  width: 120,
+                  height: 120,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  capitalizeFirstLetter(pokemon.name),
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            const SizedBox(height: 8.0),
-            Text(
-              capitalizeFirstLetter(pokemon.name),
-              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Text(
+                  '#${pokemon.id.toString()}',
+                  style: const TextStyle(color: Colors.black, fontSize: 12),
+                ),
+              ),
             ),
           ],
         ),
@@ -54,12 +75,13 @@ class PokemonCard extends StatelessWidget {
     }
   }
 
-  void _navigateToPokemonDetails(BuildContext context, PokemonDetail pokemonDetails) {
+  void _navigateToPokemonDetails(
+      BuildContext context, PokemonDetail pokemonDetails) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => PokemonDetailScreen(
-          pokemonDetail: pokemonDetails,
+          initialPokemonId: pokemonDetails.id,
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/pokemon_details_screen.dart';
-import 'screens/pokemon_list_page.dart';
+import 'screens/pokemon_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const PokemonListPage(),
+        '/': (context) => const PokemonListScreen(),
         '/details': (context) => const PokemonDetailScreen(),
       },
     );
