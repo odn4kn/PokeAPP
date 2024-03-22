@@ -4,12 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart'; // Импортируйте модели, если необходимо
 
 class ApiService {
-  static final Dio _dio = Dio();
+  static final Dio _dio = Dio(BaseOptions(baseUrl: 'https://pokeapi.co/api/v2/', receiveTimeout: 10000));
 
   // Метод для получения списка покемонов
   static Future<List<Pokemon>> fetchPokemonList() async {
     try {
-      final response = await _dio.get('https://pokeapi.co/api/v2/pokemon');
+      final response = await _dio.get('pokemon');
       final results = response.data['results'] as List<dynamic>;
       return results.map((pokemon) {
         return Pokemon(
@@ -30,7 +30,7 @@ class ApiService {
   // Метод для получения подробной информации о покемоне по его идентификатору
   static Future<PokemonDetail> fetchPokemonDetails(int pokemonId) async {
     try {
-      final response = await _dio.get('https://pokeapi.co/api/v2/pokemon/$pokemonId');
+      final response = await _dio.get('pokemon/$pokemonId');
       final pokemonDetailData = response.data;
       return PokemonDetail.fromJson(pokemonDetailData);
     } catch (error) {
