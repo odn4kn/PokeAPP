@@ -30,8 +30,8 @@ class PokemonCard extends StatelessWidget {
               children: [
                 SvgPicture.network(
                   pokemon.imageUrl,
-                  width: 120,
-                  height: 120,
+                  width: 80,
+                  height: 80,
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 8),
