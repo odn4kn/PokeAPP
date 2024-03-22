@@ -1,30 +1,37 @@
-import 'package:app/models/pokemon.dart';
 import 'package:app/models/pokemon_details.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart'; // Импортируйте модели, если необходимо
+import 'package:app/models/pokemon.dart';
+import 'package:flutter/foundation.dart';
 
 class ApiService {
   static final Dio _dio = Dio(BaseOptions(baseUrl: 'https://pokeapi.co/api/v2/', receiveTimeout: 10000));
 
-  // Метод для получения списка покемонов
-  static Future<List<Pokemon>> fetchPokemonList() async {
+  static Future<List<Pokemon>> fetchPokemonList({required int limit, required int offset}) async {
     try {
-      final response = await _dio.get('pokemon');
+      final response = await _dio.get('pokemon', queryParameters: {
+        'limit': limit,
+        'offset': offset,
+      });
+
       final results = response.data['results'] as List<dynamic>;
-      return results.map((pokemon) {
+      final pokemonList = results.map((pokemon) {
         return Pokemon(
           id: getIdFromUrl(pokemon['url']),
           name: pokemon['name'],
           imageUrl:
-              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getIdFromUrl(pokemon['url'])}.png',
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${getIdFromUrl(pokemon['url'])}.svg',
         );
       }).toList();
+
+      return pokemonList;
     } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching data: $error');
-      }
-      return [];
+      throw 'Error fetching pokemon list: $error';
     }
+  }
+
+  static int getIdFromUrl(String url) {
+    final uri = Uri.parse(url);
+    return int.parse(uri.pathSegments[uri.pathSegments.length - 2]);
   }
 
   // Метод для получения подробной информации о покемоне по его идентификатору
@@ -39,11 +46,5 @@ class ApiService {
       }
       throw 'Error fetching pokemon details: $error';
     }
-  }
-
-  // Вспомогательный метод для извлечения ID из URL
-  static int getIdFromUrl(String url) {
-    final uri = Uri.parse(url);
-    return int.parse(uri.pathSegments[uri.pathSegments.length - 2]);
   }
 }
