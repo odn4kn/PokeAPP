@@ -1,6 +1,6 @@
 import 'package:app/utils/capitalize_first_letter.dart';
 import 'package:flutter/material.dart';
-import '../models/pokemon_type.dart';
+import '../utils/pokemon_type.dart';
 
 class TypeChip extends StatelessWidget {
   final String type;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/models/pokemon_details.dart';
-import 'package:app/models/pokemon_type.dart';
+import 'package:app/utils/pokemon_type.dart';
 import 'package:app/utils/capitalize_first_letter.dart';
 import 'package:app/utils/pokemon_stat.dart';
 import 'package:app/widgets/type_chip.dart';
@@ -46,7 +46,7 @@ class PokemonDetailScreen extends StatelessWidget {
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -67,8 +67,7 @@ class PokemonDetailScreen extends StatelessWidget {
                       Row(
                         children: [
                           const Icon(Icons.monitor_weight_outlined, size: 20),
-                          const SizedBox(
-                              width: 8), // Промежуток между иконкой и текстом
+                          const SizedBox(width: 4),
                           Text(
                             'Weight: ${(pokemonDetail!.weight / 10).toStringAsFixed(1)}kg',
                             style: const TextStyle(fontSize: 18),
@@ -78,8 +77,7 @@ class PokemonDetailScreen extends StatelessWidget {
                       Row(
                         children: [
                           const Icon(Icons.height_rounded, size: 20),
-                          const SizedBox(
-                              width: 8), // Промежуток между иконкой и текстом
+                          const SizedBox(width: 4),
                           Text(
                             'Height: ${(pokemonDetail!.height / 10).toStringAsFixed(1)}m',
                             style: const TextStyle(fontSize: 18),
