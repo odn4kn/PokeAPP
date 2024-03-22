@@ -31,7 +31,8 @@ class _PokemonListPageState extends State<PokemonListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Poke list'),
+        title: const Text('Poke list',
+            style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: pokemonList.isEmpty
           ? const Center(child: CircularProgressIndicator())
